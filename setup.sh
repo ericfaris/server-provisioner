@@ -6,6 +6,8 @@ sudo groupadd -f docker
 
 sudo usermod -aG docker $USER
 
+sudo systemctl start docker
+
 sudo systemctl enable docker
 
 sudo systemctl enable containerd
