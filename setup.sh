@@ -1,12 +1,19 @@
 #!/bin/sh
 
-# - Install Git
-sudo dnf install git-all
+sudo dnf install -y git
 
-# - Clone docker-install repository
-sudo git clone https://github.com/docker/docker-install.git
+git clone https://github.com/ericfaris/server-provisioner.git
 
-cd ./docker-install/
+sudo dnf install -y docker
 
-sudo ./install.sh
+sudo groupadd -f docker
 
+sudo usermod -aG docker $USER
+
+sudo systemctl enable docker
+
+sudo systemctl enable containerd
+
+sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m) -o /usr/bin/docker-compose && sudo chmod 755 /usr/bin/docker-compose && docker-compose --version
+
+git clone https://github.com/wmnnd/nginx-certbot.git
